@@ -200,7 +200,7 @@ p {
 
 /* Hero Section */
 #hero {
-	background-image: url(./img/hero-bg.png);
+	background-image: url(./img/exp.jpg);
 	background-size: cover;
 	background-position: top center;
 	position: relative;
@@ -267,7 +267,7 @@ p {
 /* Services Section */
 #services .services {
 	flex-direction: column;
-	text-align: center;
+	/* text-align: center; */
 	max-width: 1500px;
 	margin: 0 auto;
 	padding: 100px 0;
@@ -284,15 +284,17 @@ p {
 	margin-top: 50px;
 }
 #services .service-item {
-	flex-basis: 80%;
+	flex-basis: 100%;
+	flex: 1;
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
+	/* align-items: stretch; */
+	justify-content: space-between;
 	flex-direction: column;
 	padding: 30px;
 	border-radius: 10px;
+	box-sizing: border-box;
 	background-image: url(./img/img-1.png);
-	background-size: cover;
+	/* background-size: cover; */
 	margin: 10px 5%;
 	position: relative;
 	z-index: 1;
@@ -301,30 +303,129 @@ p {
 #services .service-item::after {
 	content: '';
 	position: absolute;
+	flex: 1;
 	left: 0;
 	top: 0;
 	height: 100%;
 	width: 100%;
 	background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
-	opacity: 0.9;
+	opacity: 0.8;
 	z-index: -1;
 }
-#services .service-bottom .icon {
+#services .service-bottom .asu-icon {
+	height: 80px;
+	width: 120px;
+	margin-bottom: 20px;
+	background-color: white;
+}
+
+#services .service-bottom .vnit-icon {
 	height: 80px;
 	width: 80px;
 	margin-bottom: 20px;
+	background-color: white;
 }
-#services .service-item h2 {
+
+#services .service-bottom .service-item h2 {
 	font-size: 2rem;
 	color: white;
 	margin-bottom: 10px;
 	text-transform: uppercase;
 }
-#services .service-item p {
+#services .service-bottom .service-item p {
 	color: white;
 	text-align: left;
 }
+
+#services .service-bottom .service-item h2 a{
+	font-size: 2rem;
+	color: white;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	text-align: left;
+	text-decoration: none;
+  }
+
+#services .service-bottom .service-item  h2 a:hover {
+	text-decoration: underline; /* Add underline on hover if needed */
+  }
 /* End Services Section */
+
+/* Experiences Section */
+
+#experiences .experiences {
+	flex-direction: column;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 100px 0;
+}
+#experiences .experience-header h1 {
+	margin-bottom: 50px;
+}
+#experiences .all-experiences {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+#experiences .experience-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 80%;
+	margin: 20px auto;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+#experiences .experience-info {
+	padding: 30px;
+	/* flex-basis: 50%; */
+	flex-direction: column;
+	height: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	color: white;
+}
+
+#experiences .experience-info h1 {
+	font-size: 4rem;
+	font-weight: 500;
+}
+#experiences .experience-info h2 {
+	font-size: 1.8rem;
+	font-weight: 500;
+	margin-top: 10px;
+}
+#experiences .experience-info p {
+	color: white;
+	font-size: 1.8rem;
+	font-weight: 500;
+	margin-top: 10px;
+}
+
+#experiences .experience-info ul {
+	list-style-type: disc;
+	margin-left: 20px;
+  }
+
+#experiences .experience-info li {
+	color: white;
+	font-size: 1.3rem;
+	font-weight: 300;
+	margin-top: 10px;
+  }
+
+#experiences .company-logo {
+	max-width: 30px; /* Set the maximum width for the company logo */
+	margin-right: 0px; /* Add spacing between the logo and text */
+  }
+
+/* End Experiences Section */
 
 /* Projects section */
 #projects .projects {
@@ -397,7 +498,113 @@ p {
 #projects .project-item:hover .project-img img {
 	transform: scale(1.1);
 }
+
+#projects .project-info ul {
+	list-style-type: disc;
+	margin-left: 20px;
+  }
+
+#projects .project-info li {
+	color: white;
+	font-size: 1.3rem;
+	font-weight: 300;
+	margin-top: 10px;
+  }
+
 /* End Projects section */
+
+
+
+
+/* Extracurriculars section */
+/* Projects section */
+#projects- .projects {
+	flex-direction: column;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 100px 0;
+}
+#projects- .projects-header h1 {
+	margin-bottom: 50px;
+}
+#projects- .all-projects {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+#projects- .project-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 80%;
+	margin: 20px auto;
+	overflow: hidden;
+	border-radius: 10px;
+}
+#projects- .project-info {
+	padding: 30px;
+	flex-basis: 50%;
+	height: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	color: white;
+}
+#projects- .project-info h1 {
+	font-size: 4rem;
+	font-weight: 500;
+}
+#projects- .project-info h2 {
+	font-size: 1.8rem;
+	font-weight: 500;
+	margin-top: 10px;
+}
+#projects- .project-info p {
+	color: white;
+}
+#projects- .project-img {
+	flex-basis: 50%;
+	height: 300px;
+	overflow: hidden;
+	position: relative;
+}
+#projects- .project-img:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	opacity: 0.7;
+}
+#projects- .project-img img {
+	transition: 0.3s ease transform;
+}
+#projects- .project-item:hover .project-img img {
+	transform: scale(1.1);
+}
+
+#projects- .project-info ul {
+	list-style-type: disc;
+	margin-left: 20px;
+  }
+
+#projects- .project-info li {
+	color: white;
+	font-size: 1.3rem;
+	font-weight: 300;
+	margin-top: 10px;
+  }
+
+/* End Projects section */
+
+/* End Extracurriculars section */
+
 
 /* About Section */
 #about .about {
@@ -490,6 +697,19 @@ p {
 	line-height: 2rem;
 	font-weight: 500;
 }
+
+#contact .contact-info h2 a{
+	font-size: 1.3rem;
+	line-height: 2rem;
+	font-weight: 500;
+	text-decoration: none;
+  }
+
+#contact .contact-info h2 a:hover {
+	text-decoration: underline; /* Add underline on hover if needed */
+  }
+
+
 /*End contact Section */
 
 /* Footer */
@@ -589,6 +809,29 @@ p {
 	}
 	/* End Services Section */
 
+	/* Experiences */
+	/* #experiences .experience-item {
+		flex-direction: row;
+	}
+	#experiences .experience-item:nth-child(even) {
+		flex-direction: row-reverse;
+	}
+	#experiences .experience-item {
+		height: 400px;
+		margin: 0;
+		width: 100%;
+		border-radius: 0;
+	}
+	#experiences .all-experiences .experience-info {
+		height: 100%;
+	}
+	#experiences .all-experiences .experience-img {
+		height: 100%;
+	} */
+	/* End Experience */
+
+
+
 	/* Project */
 	#projects .project-item {
 		flex-direction: row;
@@ -609,6 +852,27 @@ p {
 		height: 100%;
 	}
 	/* End Project */
+
+	/* Extracurriculars */
+	#projects- .project-item {
+		flex-direction: row;
+	}
+	#projects- .project-item:nth-child(even) {
+		flex-direction: row-reverse;
+	}
+	#projects- .project-item {
+		height: 400px;
+		margin: 0;
+		width: 100%;
+		border-radius: 0;
+	}
+	#projects- .all-projects .project-info {
+		height: 100%;
+	}
+	#projects- .all-projects .project-img {
+		height: 100%;
+	}
+	/* End Extracurriculars
 
 	/* About */
 	#about .about {
