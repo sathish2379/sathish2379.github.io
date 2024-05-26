@@ -1,5 +1,6 @@
 # Argumentative Vis
 Access the Project at https://sathish2379.github.io/Argumentative_Visualization
+
 In this homework, you will create a pair of data visualizations that argue for opposing viewpoints, using the same base dataset.
 
 Your completed submission should include the following files:
