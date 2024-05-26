@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>Homework #2: D3 Linking - CSE 578 - Spring 2023</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="sgathpa.css" />
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="sgathpa.js"></script>
+    </head>
+    <body>
+        <div class="myContainer">
+            <h1 class="text-center">Homework #3: Argumentative Vis</h1>
+            <h3 class="text-center">Sathish Reddy Gathpa - sgathpa@asu.edu</h3>
+            <hr>
+            <section class="introduction">
+            <h2>IPL fever is on!!!</h2>
+            <p>
+                The Indian Premier League(IPL) is a men’s Twenty20 (T20) cricket league held annually in India. 
+                This league features ten city-based franchise teams. It has become a global phenomenon, attracting fans 
+                from all corners of the cricket-loving world. 
+                <br>
+                <span><b>Datasource: </b></span>The dataset consists of the data of IPL Matches from 2008 to 2022. It is available in <span><a href="https://www.kaggle.com/datasets/vora1011/ipl-2008-to-2021-all-match-dataset" target="_blank">Kaggle</a></span>.
+                <br>
+                <br>
+                <span><b>The CSK-MI Rivalry: </b></span>The CSK-MI rivalry, often dubbed the “IPL El Clásico,” is a clash of titans.
+                The Chennai Super Kings(CSK) and the Mumbai Indians(MI), with their combined 10 titles out of 16 IPL seasons, stand as the most successful teams in the league. 
+                However, their rivalry extends beyond the cricket field, fueled by regional pride, star players, and passionate fan bases.
+                The controversy lies in the passionate debates among fans: 
+                <br>
+                <span><b><i>Is CSK’s consistency, led by the Captain Cool MS Dhoni, greater than MI’s star-studded lineup?</i></b></span>
+                </p>
+            </section>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <svg id="linegraph-svg">
+                </svg>
+                <div class="csk-caption">
+                    <p>The graph captures the journey of the Chennai Super Kings and the Mumbai Indians in the IPL.
+                    The numbers don’t lie—CSK’s unwavering performance reinforces their claim to greatness. CSK’s legacy stands tall. 
+                    The graph silently echoes the debate: Is CSK greater than MI? In the realm of consistency, they hold the edge. 
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <svg id="stackedbar-svg"></svg>
+                <div class="mi-caption">
+                    <p>The stacked bars tell a compelling story of MI’s ascendancy. By 2022, these two giants had clashed 34 times.
+                        Despite CSK's legendary consistency, Mumbai Indians emerged victorious 20 times, while CSK secured 14 wins. 
+                        In the arena of head-to-head encounters, MI undeniably emerges as the superior force, leaving little room for debate. 
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="rhetoric-description">
+            <section>
+                <h2>Rhetorical Devices</h2>
+                <p>For the left chart, the following rhetorical techniques are employed:</p>
+                <ul>
+                    <li>Omission: The technique primarily involves the selective ommission of data points of the seasons 2016 and 2017 as CSK did not compete in the league in those seasons.
+                    </li>
+                    <li>
+                        Anchoring: With the Chart's title as "CSK's consistency: unwavering wins over the years" which is the initial piece of information direct's the viewers attention towards the biased opnion that CSK is greater than MI.
+                    </li>
+                    <li>
+                        Typographic: The use of larger font size and typographic emphasis in the title highlights CSK's top position and further reinforces the argument in favor of CSK's superiority.
+                    </li>
+                    <li>
+                        Visual Metaphor and Cultural Codes: By using the team jersey colors to represent the teams themselves, creating a metaphorical representation of CSK and MI. This allows viewers to quickly identify and relate the teams 
+                        based on their jersey colors, enhancing the visual communication.
+                    </li>
+                    <li>
+                        Simplification: By aggregating the number of wins and cummulative wins for each team helps to draw attention to the main storyline in conveying the overall performance of the teams without overwhelming the users with excessive detail.
+                    </li>
+                    
+                </ul>
+                <p> For the right chart, the following rhetorical techniques are utilized:</p>
+                <ul>
+                    <li>
+                        Anchoring: With the Chart's title as "MI's Dominance: Crushing CSK in Head-to-Head Battles" direct's the viewers attention towards the biased opnion of MI is greater than CSK.
+                    </li>
+                    <li>
+                        Grouping: By grouping number of wins per season in their Head-to-Head Battles and highlighting them using stacked bars allows for the analysis of data at different levels of granularity.
+                    </li>
+                    <li>
+                        Typographic: The use of larger font size and typographic emphasis in the title, highlighting MI's dominance in Head-to-Head battles further opposes the argument in favor of CSK's superiority.
+                    </li>
+                    <li>
+                        Visual Metaphor and Cultural Codes: By using the team jersey colors to represent the teams themselves, creating a metaphorical representation of CSK and MI. This allows viewers to quickly identify and relate the teams 
+                        based on their jersey colors, enhancing the visual communication. Also, representing IPL titles won by teams using trophy image on the line graph adds a layer of visual interest to the data.
+                    </li>
+                    
+                </ul>
+                
+            </section>
+        </div>
+    </body>
+</html> 
