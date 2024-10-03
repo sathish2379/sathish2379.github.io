@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>AxiSketcher</title>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='style.css'>
+    <script src='https://d3js.org/d3.v7.min.js'></script>
+    <script src='js/main.js'></script>
+    <script src='js/utilities.js'></script>
+    <script src="js/asterplot.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/radar-chart.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1 class='text-center'>AxiSketcher - Freedom Economic Index</h1>
+        <hr>
+    </div>
+    <div class='main-container'>
+        <div class='row'>
+           
+            <div class='overflow-auto' id='control-panel'>
+                <div class='form-group'>
+                    <label for='search-box'>Search:</label>
+                    <input type='text' placeholder=' Type Country Name ... ' style='width:100%' id='search-box'>
+                </div>
+                <div class='form-group'>
+                    <label for='draw'>Draw:</label>
+                    <br>
+                    <button id='free-hand' class='draw-button'>
+                        <img src='images/line.png' alt='f'>
+                    </button>
+                    <button id='poly-line' class='draw-button'>
+                        <img src='images/graph.png' , alt='p'>
+                    </button>
+                    <button id='select-points' class='draw-button'>
+                        <img src='images/select-points.png' , alt='s'>
+                    </button>
+                    <button id='clear-selection' class='draw-button'>
+                        <img src='images/undo-circle.png' , alt='c'>
+                    </button>
+                    <button id='transform-x' class='transform-button'>Transform X</button>
+                    <button id='transform-y' class='transform-button'>Transform Y</button>
+                </div>
+                <div class='form-group'>
+                    <label for='explore'>Explore:</label>
+                    <br>
+                    <button id='selection' class='draw-button'>
+                        <img src='images/lasso.png' , alt='l'>
+                    </button>
+                    <button id='clear-explore-selection' class='draw-button'>
+                        <img src='images/pencil.png' , alt='c'>
+                    </button>
+                </div>
+                <div class='form-group'>
+                    <label for='top-right-view'>Top Right View:</label>
+                    <select id='top-right-view' style='width:100%'>
+                        <option value="list_view" selected>List View</option>
+                        <option value="table_view">Table View</option> 
+                        <option value="aster_plot">Aster Plot</option>
+                        <option value="pcp">Parallel Coordinates Plot</option>
+                        <option value="radar_plot">Radar Chart</option>
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <label for='bottom-right-view'>Bottom Right View:</label>
+                    <select id='bottom-right-view' style='width:100%'>
+                        <option value="list_view">List View</option>
+                        <option value="table_view">Table View</option> 
+                        <option value="aster_plot" selected="aster_plot">Aster Plot</option>
+                        <option value="pcp">Parallel Coordinates Plot</option>
+                        <option value="radar_plot">Radar Chart</option>
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <label for='x-axis'>X Axis:</label>
+                    <select id='x-axis' style='width:100%'></select>
+                </div>
+                <div class='form-group'>
+                    <label for='y-axis'>Y Axis:</label>
+                    <select id='y-axis' style='width:100%'></select>
+                </div>
+                <div class='form-group'>
+                    <label for='show-data-values'>Hide Data Values: </label>
+                    <input type='checkbox' id='show-data-values' name='show-data-values'
+                        style='width:15px; height:15px; top:2px; left:10px; position:relative'>
+                </div>
+                <div class='form-group'>
+                    <label for='glyph-size'>Glyph Size: </label>
+                    <span id='glyph-size-display'>20</span>
+                    <input style='width:100%' type='range' min='10' max='40' value='20' class='form-range mt-2'
+                        id='glyph-size'>
+                </div>
+                <div class='form-group'>
+                    <label for='data-basket'>Data Basket: </label>
+                    <div id='data-basket' class='overflow-auto'></div>
+                    <button id='data-basket-update' class='transform-button'>Update Side Views</button>
+                    <button id='clear-data-basket' class='transform-button'>Clear Basket</button>
+                </div>
+            </div>
+            <div id='scatterplot'>
+                <div id="scatter_aster_plot"></div>
+            </div>
+            <div id='other-views'>
+                <div id='view-1' style="overflow: auto">
+                    <div id="PCP_plot_1"></div>
+                    <div id="aster_plot_1"></div>
+                    <div id="List_1"></div>
+                    <div id="Table_1" style="overflow-x: auto; overflow-y: auto"></div>
+                    <div id="Radar_1"></div>
+                </div>
+                <div id='view-2' style="overflow: auto;">
+                    <div id="PCP_plot_2"></div>
+                    <div id="aster_plot_2"></div>
+                    <div id="List_2"></div>
+                    <div id="Table_2" style="overflow-x: auto; overflow-y: auto"></div>
+                    <div id="Radar_2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
