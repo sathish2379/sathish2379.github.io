@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodiversity in National Parks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="sgathpa.js"></script>
+</head>
+<body>
+    <div class="heading">
+        <h1 class="text-center">Biodiversity In National Parks</h1>
+        <hr>
+    </div>
+    <div id="content" class="svg-div" style="overflow:auto">
+        <svg width="100%" height="800px">
+            <g class="map"></g>
+        </svg>
+    </div>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+
+        </div>
+    </div>
+    <div class="myContainer">
+        <section class="introduction">
+        <h2 style="text-align: center;">Biodiversity in National Parks</h2>
+        <hr>
+        <p>
+            This interactive visualization offers an engaging exploration of national parks across the United States.
+            Through an intuitive map interface, users can visualize the distribution of parks by state, with varying shades of green indicating the density of parks in each state.
+            As users interact with individual park markers, they can access detailed information and images, providing insights into each park's unique features.</p>
+            
+            <p><span><b>Dataset: </b></span>The dataset used is Biodiversity in National Parks.</p>
+            <span><b>Marks:</b></span>
+            <ul>
+                <li>Area of polygons represent US States</li>
+                <li>National Parks are marked using a logo(Circle overlayed with a Forest icon).</li>
+                <li>Area marks in Pie Chart represent highlevel categories of species in a national park i.e., Animals, Invertebrates, Plants, Algae_Fungi.</li>
+                <li>Area marks in Circular Bar chart represent species category as defined in the dataset.</li>
+            </ul>
+            <span><b>Channels:</b></span>
+            <ul>
+                <li>Green Color Saturation on the United States Map represent number of National Parks in a State.</li>
+                <li>The size and color saturation of the logo used to mark National Parks represent the Park Acres.</li>
+                <li>The Color hue, arc-size, angle of pies in pie chart are channels representing the number of species in a highlevel category.</li>
+                <li>The radius of the Bars from center and their color are channels in Circular Bar plot represent the number of species in a category.</li>
+            </ul>
+            <span><b>Interactions:</b></span>
+            <ul>
+                <li>Mouse Hover: When a mouse is hovered over the marker at the National Park location, an image of National Park is shown as tooltip.</li>
+                <li>Mouse Click: When a mouse is clicked over the marker at the National Park location, a modal opens up which shows a custom visualization.</li>
+            </ul>
+            <span><b>Custom Visualization:</b></span>
+            <p>The visualization falls under the <span><b><i>Combinatorial Custom Visualization.</i></b></span></p>
+            <p>The visualization combines several visualization techniques and interaction methods to present the information about US national parks in an engaging and effective manner.
+               It begins with a Chloropeth map of United States, when clicked on it, the two main components pie chart and circular bar plot are visualized within the modal.
+               By combining these two chart types, the visualization offers multi-layered exploration of the data i.e., Highlevel categories and distribution of specific categories in a national park.
+            </p>
+        </section>
+    </div>
+</body>
+</html>
