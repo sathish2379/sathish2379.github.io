@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ammuluuuuuuu 💘 Giant</title>
+  <style>
+    :root{
+      --bg1:#ffd6e8;
+      --bg2:#ff7aa2;
+      --card:rgba(255,255,255,0.78);
+      --text:#222;
+      --muted:rgba(0,0,0,0.55);
+      --yes1:#34d399;
+      --yes2:#22c55e;
+      --no1:#fb7185;
+      --no2:#ef4444;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; height:100vh; overflow:hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 15% 0%, var(--bg1), transparent),
+        radial-gradient(1200px 800px at 90% 20%, var(--bg2), transparent),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      display:grid; place-items:center;
+    }
+    canvas{ position:fixed; inset:0; pointer-events:none; }
+
+    .card{
+      width:min(880px, calc(100% - 32px));
+      padding:28px;
+      border-radius:22px;
+      background:var(--card);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 20px 90px rgba(0,0,0,0.18);
+      position: relative;
+      z-index: 1;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 4vw, 46px);
+      text-align:center;
+    }
+    .sub{
+      margin:0 0 18px;
+      text-align:center;
+      color:var(--muted);
+      font-size: 16px;
+    }
+
+    .arena{
+      position:relative;
+      height:150px;
+      margin-top: 6px;
+    }
+
+    .btn{
+      border:0;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:800;
+      font-size:16px;
+      cursor:pointer;
+      user-select:none;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      transition: transform .08s ease, filter .15s ease;
+    }
+    .btn:active{ transform: scale(0.98); }
+    .btn:hover{ filter: brightness(1.03); }
+
+    #yesBtn{
+      position:absolute;
+      left:30%; top:50%;
+      transform: translate(-50%,-50%);
+      color:#fff;
+      background: linear-gradient(135deg, var(--yes1), var(--yes2));
+    }
+    #noBtn{
+      position:absolute;
+      left:70%; top:50%;
+      transform: translate(-50%,-50%);
+      color:#fff;
+      background: linear-gradient(135deg, var(--no1), var(--no2));
+      font-size: 14px;
+      padding: 10px 14px;
+      opacity: 0.95;
+    }
+
+    .hint{
+      margin-top:10px;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* YES screen */
+    .yes-screen{
+      display:none;
+      text-align:center;
+      animation: pop .35s ease forwards;
+    }
+    @keyframes pop{
+      from{ transform: scale(.97); opacity:0; }
+      to{ transform: scale(1); opacity:1; }
+    }
+
+    .big{
+      font-size: clamp(18px, 2.6vw, 26px);
+      font-weight: 900;
+      margin-top: 8px;
+    }
+    .message{
+      margin: 10px auto 0;
+      max-width: 720px;
+      color: rgba(0,0,0,0.65);
+      line-height: 1.65;
+      font-size: 16px;
+      white-space: pre-line;
+    }
+
+    /* Slideshow container */
+    .slideshow{
+    width:min(560px, 95%);
+    margin: 16px auto 8px;
+    border-radius:18px;
+    overflow:hidden;
+    border: 1px solid rgba(255,255,255,0.75);
+    box-shadow: 0 18px 65px rgba(0,0,0,0.18);
+    background: rgba(255,255,255,0.6);
+    position: relative;
+    isolation: isolate;
+    }
+
+    /* Keeps layout height stable */
+    .slide-spacer{
+    height: 390px;
+    }
+
+    /* Two image layers for crossfade */
+    .slide-img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit: contain;              /* ✅ SHOW FULL IMAGE */
+    object-position: center;
+    background: rgba(0,0,0,0.20);     /* nice “frame” behind letterboxing */
+    opacity: 0;
+    transition: opacity 700ms ease;
+    z-index: 2;
+    }
+    .slide-img.show{
+    opacity: 1;
+    }
+
+    @media (max-width: 560px){
+    .slide-spacer{ height: 320px; }
+    }
+
+
+    /* Loading overlay */
+    .loader{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:10px;
+      background: rgba(0,0,0,0.22);
+      color: rgba(255,255,255,0.95);
+      font-weight: 900;
+      z-index: 6;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 250ms ease;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .loader.show{ opacity: 1; }
+
+    .spinner{
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 3px solid rgba(255,255,255,0.45);
+      border-top-color: rgba(255,255,255,0.95);
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin{
+      to{ transform: rotate(360deg); }
+    }
+
+    .controls{
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .ctrl{
+      border: 1px solid rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.6);
+      padding: 10px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 900;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+    }
+    .ctrl:active{ transform: scale(0.98); }
+
+    .footer{
+      margin-top: 10px;
+      color: rgba(0,0,0,0.55);
+      font-size: 13px;
+    }
+
+    .sparkle{
+      display:inline-block;
+      animation: floaty 1.8s ease-in-out infinite;
+    }
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-6px); }
+    }
+
+    @media (max-width: 560px){
+      .arena{ height: 170px; }
+      #yesBtn{ left: 32%; }
+      #noBtn{ left: 74%; }
+      .slide-spacer{ height: 320px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="hearts"></canvas>
+  <canvas id="confetti"></canvas>
+
+  <div class="card">
+    <div id="questionScreen">
+      <h1>Ammuluuuuuuu, will you be my Valentine? <span class="sparkle">💘</span></h1>
+      <p class="sub">From <b>Giant</b> — with all my heart (and some Cupid-level cheating 😌)</p>
+
+      <div class="arena" id="arena">
+        <button class="btn" id="yesBtn">YES 💖</button>
+        <button class="btn" id="noBtn">no</button>
+      </div>
+
+      <div class="hint">Tip: “no” is under protective custody. Your only safe choice is YES 😇💗</div>
+    </div>
+
+    <div class="yes-screen" id="yesScreen">
+      <h1>YAYYYYY!!! 💞</h1>
+      <div class="big">Ammuluuuuuuu, you just made my whole universe smile 😭❤️</div>
+
+      <div class="message" id="loveText"></div>
+
+    <div class="slideshow" id="slideshow">
+        <div class="slide-spacer"></div>
+
+        <img class="slide-img" id="imgA" alt="Our photo A" />
+        <img class="slide-img" id="imgB" alt="Our photo B" />
+
+        <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <div>Loading our memory lane… 💞</div>
+        </div>
+
+        <div class="slide-overlay">
+            <span>💞 Memory lane</span>
+            <span id="slideCount"></span>
+        </div>
+    </div>
+
+
+      <div class="controls">
+        <button class="ctrl" id="prevBtn">⬅ Prev</button>
+        <button class="ctrl" id="nextBtn">Next ➡</button>
+        <button class="ctrl" id="pauseBtn">⏸ Pause</button>
+      </div>
+
+      <div class="footer">Forever yours, <b>Giant</b> 💌</div>
+    </div>
+  </div>
+
+  <script>
+    // -----------------------------
+    // CONFIG: 14 photos (us1.jpg ... us14.jpg)
+    // Upload them to the same folder as index.html
+    // -----------------------------
+    const photos = Array.from({length: 14}, (_, i) => `us${i+1}.jpg`);
+
+    // -----------------------------
+    // NO button runs away
+    // -----------------------------
+    const arena = document.getElementById("arena");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const questionScreen = document.getElementById("questionScreen");
+    const yesScreen = document.getElementById("yesScreen");
+
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+    function moveNoAway(mouseX, mouseY){
+      const a = arena.getBoundingClientRect();
+      const n = noBtn.getBoundingClientRect();
+
+      const mx = mouseX - a.left;
+      const my = mouseY - a.top;
+
+      const nx = (n.left - a.left) + n.width/2;
+      const ny = (n.top  - a.top ) + n.height/2;
+
+      const dx = nx - mx;
+      const dy = ny - my;
+      const dist = Math.hypot(dx, dy);
+
+      const trigger = 120;
+      if(dist < trigger){
+        const push = (trigger - dist) * 1.7;
+        const ux = dx / (dist || 1);
+        const uy = dy / (dist || 1);
+
+        let left = (n.left - a.left) + ux * push;
+        let top  = (n.top  - a.top ) + uy * push;
+
+        const pad = 6;
+        const maxLeft = a.width - n.width - pad;
+        const maxTop  = a.height - n.height - pad;
+
+        left = clamp(left, pad, maxLeft);
+        top  = clamp(top,  pad, maxTop);
+
+        noBtn.style.left = `${left + n.width/2}px`;
+        noBtn.style.top  = `${top + n.height/2}px`;
+      }
+    }
+
+    arena.addEventListener("mousemove", (e)=> moveNoAway(e.clientX, e.clientY));
+    arena.addEventListener("touchstart", (e)=>{
+      const t = e.touches[0];
+      moveNoAway(t.clientX, t.clientY);
+    }, { passive:true });
+
+    // -----------------------------
+    // YES -> show screen + effects + slideshow
+    // -----------------------------
+    const loveText = document.getElementById("loveText");
+
+    const lines = [
+      "I choose you — today, tomorrow, and every little moment after that. 💗",
+      "You’re my peace, my laughter, my favorite person, and my forever comfort. 🥰",
+      "So here’s my official request:",
+      "Be my Valentine… and stay my Ammuluuuuuuu always? 😭💞",
+      "",
+      "Now enjoy our Memory Lane… one photo at a time 💘"
+    ];
+
+    yesBtn.addEventListener("click", ()=>{
+      questionScreen.style.display = "none";
+      yesScreen.style.display = "block";
+
+      loveText.textContent = lines.join("\n");
+
+      burstConfetti();
+      startHearts();
+      startSlideshow();
+    });
+
+    // =============================
+    // SLIDESHOW with crossfade + loader
+    // =============================
+    const imgA = document.getElementById("imgA");
+    const imgB = document.getElementById("imgB");
+    const loader = document.getElementById("loader");
+    const slideCount = document.getElementById("slideCount");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
+
+    let idx = 0;
+    let timer = null;
+    let paused = false;
+    let showingA = true;
+
+    function setLoader(on){
+    loader.classList.toggle("show", !!on);
+    }
+
+    function preload(src){
+    return new Promise((resolve, reject)=>{
+        const im = new Image();
+        im.onload = ()=> resolve(src);
+        im.onerror = ()=> reject(src);
+        im.src = src;
+    });
+    }
+
+    async function showSlide(newIndex, instant=false){
+    idx = (newIndex + photos.length) % photos.length;
+    const src = photos[idx];
+    slideCount.textContent = `${idx+1}/${photos.length}`;
+
+    setLoader(true);
+    try { await preload(src); } catch(e) {}
+    setLoader(false);
+
+    const nextImg = showingA ? imgB : imgA;
+    const curImg  = showingA ? imgA : imgB;
+
+    nextImg.src = src;
+
+    if (instant){
+        curImg.classList.remove("show");
+        nextImg.classList.add("show");
+    } else {
+        nextImg.classList.add("show");
+        curImg.classList.remove("show");
+    }
+
+    showingA = !showingA;
+    }
+
+    function startSlideshow(){
+    // preload first few images for smoothness
+    photos.slice(0, 4).forEach(p => { const im = new Image(); im.src = p; });
+
+    paused = false;
+    pauseBtn.textContent = "⏸ Pause";
+
+    showSlide(0, true);
+
+    if(timer) clearInterval(timer);
+    timer = setInterval(()=> { if(!paused) showSlide(idx+1); }, 2400);
+    }
+
+    prevBtn.addEventListener("click", ()=> showSlide(idx-1));
+    nextBtn.addEventListener("click", ()=> showSlide(idx+1));
+    pauseBtn.addEventListener("click", ()=>{
+    paused = !paused;
+    pauseBtn.textContent = paused ? "▶ Play" : "⏸ Pause";
+    });
+
+
+    function startSlideshow(){
+      // preload first few images in background (nice UX)
+      photos.slice(0, 4).forEach(p => { const im = new Image(); im.src = p; });
+
+      paused = false;
+      pauseBtn.textContent = "⏸ Pause";
+
+      // first slide (instant)
+      showSlide(0, true);
+
+      if(timer) clearInterval(timer);
+      timer = setInterval(()=> { if(!paused) showSlide(idx+1); }, 2400);
+    }
+
+    prevBtn.addEventListener("click", ()=> showSlide(idx-1));
+    nextBtn.addEventListener("click", ()=> showSlide(idx+1));
+    pauseBtn.addEventListener("click", ()=>{
+      paused = !paused;
+      pauseBtn.textContent = paused ? "▶ Play" : "⏸ Pause";
+    });
+
+    // =============================
+    // HEARTS (continuous fall)
+    // =============================
+    const heartsCanvas = document.getElementById("hearts");
+    const hctx = heartsCanvas.getContext("2d");
+    let hearts = [];
+    let heartsRAF = null;
+
+    function resizeHearts(){
+      const dpr = devicePixelRatio || 1;
+      heartsCanvas.width = innerWidth * dpr;
+      heartsCanvas.height = innerHeight * dpr;
+      hctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    addEventListener("resize", resizeHearts);
+    resizeHearts();
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+
+    function makeHeart(){
+      return {
+        x: rand(0, innerWidth),
+        y: rand(-60, -10),
+        s: rand(10, 22),
+        vy: rand(1.3, 3.6),
+        vx: rand(-0.8, 0.8),
+        r: rand(0, Math.PI),
+        vr: rand(-0.03, 0.03),
+        a: rand(0.7, 1)
+      };
+    }
+
+    function drawHeart(x,y,s,r,a){
+      hctx.save();
+      hctx.translate(x,y);
+      hctx.rotate(r);
+      hctx.globalAlpha = a;
+
+      hctx.beginPath();
+      hctx.moveTo(0, s*0.35);
+      hctx.bezierCurveTo(0, 0, -s*0.55, 0, -s*0.55, s*0.35);
+      hctx.bezierCurveTo(-s*0.55, s*0.75, 0, s*0.95, 0, s*1.2);
+      hctx.bezierCurveTo(0, s*0.95, s*0.55, s*0.75, s*0.55, s*0.35);
+      hctx.bezierCurveTo(s*0.55, 0, 0, 0, 0, s*0.35);
+      hctx.closePath();
+
+      hctx.fillStyle = "rgba(255, 20, 80, 0.9)";
+      hctx.fill();
+
+      hctx.globalAlpha = a*0.35;
+      hctx.fillStyle = "rgba(255,255,255,0.85)";
+      hctx.beginPath();
+      hctx.ellipse(-s*0.18, s*0.35, s*0.12, s*0.18, -0.6, 0, Math.PI*2);
+      hctx.fill();
+
+      hctx.restore();
+    }
+
+    function heartsTick(){
+      hctx.clearRect(0,0,innerWidth,innerHeight);
+
+      if(hearts.length < 150 && Math.random() < 0.9) hearts.push(makeHeart());
+
+      for(const h of hearts){
+        h.y += h.vy;
+        h.x += h.vx;
+        h.r += h.vr;
+        drawHeart(h.x, h.y, h.s, h.r, h.a);
+      }
+
+      hearts = hearts.filter(h => h.y < innerHeight + 80);
+      heartsRAF = requestAnimationFrame(heartsTick);
+    }
+
+    function startHearts(){
+      if(heartsRAF) return;
+      hearts = Array.from({length: 50}, makeHeart);
+      heartsTick();
+    }
+
+    // =============================
+    // CONFETTI (burst)
+    // =============================
+    const confCanvas = document.getElementById("confetti");
+    const cctx = confCanvas.getContext("2d");
+    let confetti = [];
+    let confRAF = null;
+
+    function resizeConf(){
+      const dpr = devicePixelRatio || 1;
+      confCanvas.width = innerWidth * dpr;
+      confCanvas.height = innerHeight * dpr;
+      cctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    addEventListener("resize", resizeConf);
+    resizeConf();
+
+    function burstConfetti(){
+      const cx = innerWidth/2, cy = innerHeight/3;
+
+      confetti = [];
+      const pieces = 200;
+
+      for(let i=0;i<pieces;i++){
+        const angle = rand(0, Math.PI*2);
+        const speed = rand(3, 9);
+        confetti.push({
+          x: cx,
+          y: cy,
+          vx: Math.cos(angle)*speed,
+          vy: Math.sin(angle)*speed - rand(2, 6),
+          g: rand(0.08, 0.18),
+          w: rand(6, 12),
+          h: rand(6, 16),
+          r: rand(0, Math.PI),
+          vr: rand(-0.2, 0.2),
+          life: rand(70, 120),
+          hue: Math.floor(rand(0, 360))
+        });
+      }
+
+      if(!confRAF) confTick();
+    }
+
+    function confTick(){
+      cctx.clearRect(0,0,innerWidth,innerHeight);
+
+      for(const p of confetti){
+        p.life -= 1;
+        p.vy += p.g;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.r += p.vr;
+
+        cctx.save();
+        cctx.translate(p.x, p.y);
+        cctx.rotate(p.r);
+        cctx.fillStyle = `hsla(${p.hue}, 90%, 55%, 0.95)`;
+        cctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+        cctx.restore();
+      }
+
+      confetti = confetti.filter(p => p.life > 0 && p.y < innerHeight + 40);
+
+      if(confetti.length){
+        confRAF = requestAnimationFrame(confTick);
+      }else{
+        confRAF = null;
+        cctx.clearRect(0,0,innerWidth,innerHeight);
+      }
+    }
+  </script>
+</body>
+</html>
